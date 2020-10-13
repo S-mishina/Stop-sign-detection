@@ -10,4 +10,4 @@ https://qiita.com/asmg07/items/b0ab83d930adbed79df2<br>
 https://qiita.com/asmg07/items/8f450e1ae6e213890db9<br>
 ## 停まれのモデルについて
 停まれの標識のモデルは以下のような学習結果になっています.<br>
-
+学習結果.png
