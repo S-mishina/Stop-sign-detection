@@ -14,3 +14,6 @@ https://raw.githubusercontent.com/S-mishina/Stop-sign-detection/main/%E5%AD%A6%E
 ## 導入について
 yolov5の派生として開発をしているのでYolov5を参考にしてください.<br>
 https://github.com/ultralytics/yolov5<br>
+## 実行方法
+$python server.pyの実行
+$python detect.py --source 0の実行
