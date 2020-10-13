@@ -1,0 +1,6 @@
+train: test1/train/images
+val: test1/valid/images
+
+nc: 2
+names: ['asuka', 'yoda']
+

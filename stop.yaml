@@ -1,0 +1,5 @@
+train: test3/train/images
+val: test3/valid/images
+
+nc: 1
+names: ['stop sign']

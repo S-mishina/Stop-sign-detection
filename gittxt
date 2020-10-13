@@ -1,0 +1,13 @@
+...またはコマンド ラインで新しいリポジトリを作成する
+echo "# Stop-sign-detection" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/S-mishina/Stop-sign-detection.git
+git push -u origin main
+                
+...または、コマンド ラインから既存のリポジトリをプッシュする
+git remote add origin https://github.com/S-mishina/Stop-sign-detection.git
+git branch -M main
+git push -u origin main
