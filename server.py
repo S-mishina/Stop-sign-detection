@@ -1,7 +1,7 @@
 # socket サーバを作成
-
+from playsound import playsound
 import socket
-
+cont=1
 # AF = IPv4 という意味
 # TCP/IP の場合は、SOCK_STREAM を使う
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -17,8 +17,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             while True:
                 # データを受け取る
                 data = conn.recv(1024)
-                if not data:
+                if not data:    
                     break
-                print('data : {}, addr: {}'.format(data, addr))
-                # クライアントにデータを返す(b -> byte でないといけない)
-                conn.sendall(b'Received: ' + data)
+                else:
+                 data2=str(data)
+                 data3=(data2.replace('b', ''))
+                 conn.sendall(b'Received: ' + data)
+                if data3 == "'1'":
+                        playsound('2.wav')
+                if data3 == "'2'":
+                        playsound('3.wav')

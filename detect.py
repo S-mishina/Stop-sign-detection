@@ -7,6 +7,7 @@ import time
 import socket
 import pathlib
 from pathlib import Path
+from time import sleep
 
 import cv2
 import torch
@@ -20,8 +21,28 @@ from utils.general import (
     xyxy2xywh, plot_one_box, strip_optimizer, set_logging)
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
-host = "192.168.10.4" #Processingで立ち上げたサーバのIPアドレス
-port = 10001       #Processingで設定したポート番号
+test=0
+
+
+def socket1():
+    host = "192.168.10.4" #Processingで立ち上げたサーバのIPアドレス
+    port = 10001       #Processingで設定したポート番号
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
+                         s2.connect(('127.0.0.1', 50007))
+                         BUFFER_SIZE=1024
+                         data1='1'
+                         s2.send(data1.encode())
+                         print(s2.recv(BUFFER_SIZE).decode())
+
+def socket2():
+    host = "192.168.10.4" #Processingで立ち上げたサーバのIPアドレス
+    port = 10001       #Processingで設定したポート番号
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
+                         s2.connect(('127.0.0.1', 50007))
+                         BUFFER_SIZE=1024
+                         data1='2'
+                         s2.send(data1.encode())
+                         print(s2.recv(BUFFER_SIZE).decode())
 
 
 def detect(save_img=False):
@@ -111,16 +132,21 @@ def detect(save_img=False):
                     n = (det[:, -1] == c).sum()  # detections per class
                     s += '%g %ss, ' % (n, names[int(c)])  # add to string
                     label1 = str((names[int(c)]))  # add to string
-                    if label1=="chair":
-                     print("椅子を検知しました.")
-                     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
-                         s2.connect(('127.0.0.1', 50007))
-                         s2.sendall(b'isukenti')
-                         data = s2.recv(1024)
+                    if label1=="cell phone":
+                     print("スマホを発見しました")
+                     socket1()
+                     with open('daystext/'+str(d_today)+'.txt', 'a') as f:
+                         dt_now = datetime.datetime.now()
+                         f.write(str(dt_now)+"スマホを発見しました"+"\n")
+                    if label1=="book":
+                     print("本を発見しました")
+                     socket2()
+                     with open('daystext/'+str(d_today)+'.txt', 'a') as f:
+                         dt_now = datetime.datetime.now()
+                         f.write(str(dt_now)+"本を発見しました"+"\n")
 
-                    with open('daystext/'+str(d_today)+'.txt', 'a') as f:
-                     dt_now = datetime.datetime.now()
-                     f.write(str(dt_now)+"椅子を検知しました."+"\n")
+
+
 
 
                 # 結果を書く
