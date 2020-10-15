@@ -2,6 +2,10 @@
 このプログラムはyolov5のプログラムを一部加工してあります.<br>
 https://github.com/ultralytics/yolov5<br>
 ## 実装されている機能について
+・物体が検知されたときに音声で知らせるプログラム(複数)<br>
+https://qiita.com/asmg07/items/a45c663e44c6d45f6dc6<br>
+・物体が検知されたときに音声で知らせるプログラム<br>
+https://qiita.com/asmg07/items/0b1361cff76fc93962a1<br>
 ・物体が検知されたときにソケット通信をするプログラム<br>
 https://qiita.com/asmg07/items/7413b82117c629b73719<br>
 ・物体が検知されたときに記録する為のプログラム<br>
