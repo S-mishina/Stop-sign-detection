@@ -25,13 +25,7 @@ test=0
 picture=0
 today1=0
 
-
-
-
-
 def socket1():
-    host = "192.168.10.4" #Processingで立ち上げたサーバのIPアドレス
-    port = 10001       #Processingで設定したポート番号
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
                          s2.connect(('127.0.0.1', 50007))
                          BUFFER_SIZE=1024
@@ -166,7 +160,7 @@ def detect(save_img=False):
 #label1に学習させてあるモデルのモデル名を入れることで,モデル検知をすることができる. label1=="book"
 #認識したものを別ウインドーにて可視化する為にその認識した画像を保存する.img = cv2.imread('book.jpg')
 #認識したものを可視化する.cv2.imshow('book', img)
-#====================================================================================================#
+#==================================================================================================#
                 # 結果を書く
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
