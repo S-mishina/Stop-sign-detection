@@ -12,7 +12,7 @@ https://qiita.com/asmg07/items/7413b82117c629b73719<br>
 https://qiita.com/asmg07/items/b0ab83d930adbed79df2<br>
 ・日本の停まれの標識を学習させたモデル<br>
 https://qiita.com/asmg07/items/8f450e1ae6e213890db9<br>
-※記事上では,看板ではなく,椅子を検知した時の処理を例に書いています.
+※記事上では,看板ではなく,いろいろなものを検知した時を例にして書いています.
 ## 停まれのモデルについて
 停まれの標識のモデルは以下のような学習結果になっています.<br>
 https://raw.githubusercontent.com/S-mishina/Stop-sign-detection/main/%E5%AD%A6%E7%BF%92%E7%B5%90%E6%9E%9C%E7%9C%8B%E6%9D%BF.png
