@@ -22,6 +22,11 @@ from utils.general import (
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
 test=0
+picture=0
+today1=0
+
+
+
 
 
 def socket1():
@@ -57,8 +62,8 @@ def detect(save_img=False):
         shutil.rmtree(out)  #出力フォルダーを削除します
     os.makedirs(out)  #新しい出力フォルダーを作成します
     d_today = datetime.date.today()
-    
     f = pathlib.Path('daystext/'+ str(d_today) +'.txt')
+
     f.touch()
     half = device.type != 'cpu'  #精度はCUDAでのみサポートされます
 
@@ -134,21 +139,34 @@ def detect(save_img=False):
                     label1 = str((names[int(c)]))  # add to string
                     if label1=="cell phone":
                      print("スマホを発見しました")
+                     cv2.imwrite('sumaho.jpg',im0)
+                     img = cv2.imread('sumaho.jpg')
+                     cv2.imshow('sumaho', img)
+
                      socket1()
                      with open('daystext/'+str(d_today)+'.txt', 'a') as f:
                          dt_now = datetime.datetime.now()
                          f.write(str(dt_now)+"スマホを発見しました"+"\n")
                     if label1=="book":
                      print("本を発見しました")
+                     cv2.imwrite('book.jpg',im0)
+                     img = cv2.imread('book.jpg')
+                     cv2.imshow('book', img)
                      socket2()
                      with open('daystext/'+str(d_today)+'.txt', 'a') as f:
                          dt_now = datetime.datetime.now()
                          f.write(str(dt_now)+"本を発見しました"+"\n")
-
-
-
-
-
+#==================================================================================================#
+#                    if label1=="book":
+#                     print("本を発見しました")
+#                     cv2.imwrite('book.jpg',im0)
+#                     img = cv2.imread('book.jpg')
+#                     cv2.imshow('book', img)
+#                     socket2()
+#label1に学習させてあるモデルのモデル名を入れることで,モデル検知をすることができる. label1=="book"
+#認識したものを別ウインドーにて可視化する為にその認識した画像を保存する.img = cv2.imread('book.jpg')
+#認識したものを可視化する.cv2.imshow('book', img)
+#====================================================================================================#
                 # 結果を書く
                 for *xyxy, conf, cls in reversed(det):
                     if save_txt:  # Write to file
