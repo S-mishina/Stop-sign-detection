@@ -20,6 +20,8 @@ from utils.general import (
     check_img_size, non_max_suppression, apply_classifier, scale_coords,
     xyxy2xywh, plot_one_box, strip_optimizer, set_logging)
 from utils.torch_utils import select_device, load_classifier, time_synchronized
+from websocket import create_connection
+import logging
 
 test=0
 picture=0
@@ -34,14 +36,39 @@ def socket1():
                          print(s2.recv(BUFFER_SIZE).decode())
 
 def socket2():
-    host = "192.168.10.4" #Processingで立ち上げたサーバのIPアドレス
-    port = 10001       #Processingで設定したポート番号
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s2:
                          s2.connect(('127.0.0.1', 50007))
                          BUFFER_SIZE=1024
                          data1='2'
                          s2.send(data1.encode())
                          print(s2.recv(BUFFER_SIZE).decode())
+
+def socket3():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter(' %(module)s -  %(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(handler)
+    ws = create_connection("ws://127.0.0.1:12345")
+    ws.send("1")
+    result = ws.recv()
+    logger.info("Received '{}'".format(result))
+    ws.close()
+    logger.info("Close")
+
+def socket4():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+    handler = logging.StreamHandler()
+    handler.setFormatter(logging.Formatter(' %(module)s -  %(asctime)s - %(levelname)s - %(message)s'))
+    logger.addHandler(handler)
+    ws = create_connection("ws://127.0.0.1:12345")
+    ws.send("2")
+    result = ws.recv()
+    logger.info("Received '{}'".format(result))
+    ws.close()
+    logger.info("Close")
+
 
 
 def detect(save_img=False):
@@ -138,6 +165,7 @@ def detect(save_img=False):
                      cv2.imshow('sumaho', img)
 
                      socket1()
+                     socket3()
                      with open('daystext/'+str(d_today)+'.txt', 'a') as f:
                          dt_now = datetime.datetime.now()
                          f.write(str(dt_now)+"スマホを発見しました"+"\n")
@@ -147,6 +175,7 @@ def detect(save_img=False):
                      img = cv2.imread('book.jpg')
                      cv2.imshow('book', img)
                      socket2()
+                     socket4()
                      with open('daystext/'+str(d_today)+'.txt', 'a') as f:
                          dt_now = datetime.datetime.now()
                          f.write(str(dt_now)+"本を発見しました"+"\n")
